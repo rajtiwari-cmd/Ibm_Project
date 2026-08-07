@@ -1,0 +1,21 @@
+import json
+
+with open("intents.json", "r") as f:
+    school_data = json.load(f)
+
+context = json.dumps(school_data, indent=2)
+
+response = client.models.generate_content(
+    model="gemini-2.5-flash",
+    contents=f"""
+You are a school chatbot.
+
+Here is the school information:
+
+{context}
+
+Answer using this information whenever possible.
+Question:
+{user_text}
+"""
+)
